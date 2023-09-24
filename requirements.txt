@@ -1,0 +1,6 @@
+extruct
+Flask
+playwright
+Requests
+w3lib
+gunicorn

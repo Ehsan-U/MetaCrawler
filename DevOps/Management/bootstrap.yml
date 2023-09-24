@@ -1,0 +1,44 @@
+
+---
+
+- hosts: all
+  become: true
+  max_fail_percentage: 0
+  ignore_unreachable: false
+  tasks:
+
+  - name: creating user for ansible
+    user:
+      name: simone
+      group: root
+      create_home: true
+      shell: /bin/bash
+
+  - name: add user to sudoers
+    copy:
+      src: simone
+      dest: /etc/sudoers.d/simone
+      owner: root
+      group: root
+      mode: 0440
+
+  - name: add keys for user
+    tags: add_user_key
+    authorized_key:
+      user: simone
+      key: "{{ SSH_PUBKEY }}"
+
+  - name: generate sshd_config file
+    copy:
+      src: sshd_config
+      dest: /etc/ssh/ssh_config
+      owner: root
+      group: root
+      mode: 0664
+    notify: restart_ssh
+
+  handlers:
+    - name: restart_ssh
+      service:
+        name: ssh
+        state: restarted

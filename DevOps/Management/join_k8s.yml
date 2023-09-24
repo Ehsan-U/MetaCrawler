@@ -1,0 +1,12 @@
+
+
+---
+
+- hosts: slave
+  max_fail_percentage: 0
+  ignore_unreachable: false
+  become: true
+  tasks:
+
+  - name: join the cluster
+    script: ../Bash/join_k8s.sh
