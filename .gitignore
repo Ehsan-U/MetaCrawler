@@ -1,0 +1,7 @@
+.idea/
+__pycache__/
+.vscode/
+kubeadm_init_stdout.txt
+*auto.tfvars
+secret.json
+.terraform/
