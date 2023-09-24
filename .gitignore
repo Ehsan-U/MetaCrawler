@@ -5,3 +5,4 @@ kubeadm_init_stdout.txt
 *auto.tfvars
 secret.json
 .terraform/
+Pipfile*
