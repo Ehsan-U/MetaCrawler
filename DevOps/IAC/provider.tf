@@ -8,11 +8,21 @@
 #   }
 # }
 
+# terraform {
+#   required_providers {
+#     google = {
+#       source = "hashicorp/google"
+#       version = "4.83.0"
+#     }
+#   }
+# }
+
+
 terraform {
   required_providers {
-    google = {
-      source = "hashicorp/google"
-      version = "4.83.0"
+    digitalocean = {
+      source = "digitalocean/digitalocean"
+      version = "~> 2.0"
     }
   }
 }
@@ -26,8 +36,12 @@ terraform {
 #   pm_tls_insecure = true
 # }
 
-provider "google" {
-  project     = "ethereal-anvil-391608"
-  region      = "us-central1"
-  credentials = file("secret.json")
+# provider "google" {
+#   project     = "ethereal-anvil-391608"
+#   region      = "us-central1"
+#   credentials = file("secret.json")
+# }
+
+provider "digitalocean" {
+  token = var.do_token
 }

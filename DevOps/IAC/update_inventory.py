@@ -9,6 +9,12 @@ from pprint import pprint
 data = json.loads(sh.terraform("output", "-json"))
 mapping = data.get('instance_public_ips')['value']
 
+
+def extract_ip(raw_string):
+	ip_cidr = raw_string.split(",")[0]
+	return ip_cidr.replace("ip=",'').replace("/24",'')
+
+
 servers = {
     "master": [ip for category, ip in mapping.items() if 'master' in category],
     "slave": [ip for category, ip in mapping.items() if 'slave' in category],

@@ -21,9 +21,10 @@ class MetaCrawler:
                 logger.debug("Error in get_metadata")
                 logger.error(e)
 
-    def crawl(self, url: str, render: bool = False) -> Union[dict, None]:
+    def crawl(self, url: str, render: bool) -> Union[dict, None]:
         request = Request(url=url, render=render)
         response = fetch(request)
         metadata = self.get_metadata(response)
         return metadata
+
 

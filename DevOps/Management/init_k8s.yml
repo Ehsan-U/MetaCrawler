@@ -25,7 +25,7 @@
   tasks:
 
   - name: Kubeadm init
-    shell: kubeadm init --control-plane-endpoint $(curl http://icanhazip.com/) --pod-network-cidr 10.244.0.0/16
+    shell: kubeadm init --apiserver-advertise-address $(curl http://icanhazip.com/) --pod-network-cidr 10.244.0.0/16
     register: kubeadm_init_stdout
 
   - name: Save kubeadm_init_stdout to file
