@@ -6,3 +6,4 @@ kubeadm_init_stdout.txt
 secret.json
 .terraform/
 Pipfile*
+logs/
