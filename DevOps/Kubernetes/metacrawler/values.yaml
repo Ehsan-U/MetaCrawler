@@ -1,0 +1,5 @@
+appName: metacrawler
+
+image:
+  name: localhost:5000/metacrawler
+  tag: latest
