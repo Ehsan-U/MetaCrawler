@@ -1,0 +1,7 @@
+.idea/
+.vscode/
+DevOps/
+logs/
+init.py
+Pipfile*
+

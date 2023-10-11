@@ -14,14 +14,14 @@ def run_terraform():
     sh.python3("update_inventory.py", _out=sys.stdout, _err=sys.stderr)
     os.chdir("../../")    
     logger.info("Terraform run complete")
-    time.sleep(30)
+    time.sleep(60)
 
 
 def run_ansible():
     logger.info("Running Ansible")
     os.chdir('./DevOps/Management')
     print(os.getcwd())
-    sh.sed("-i", "s/remote_user=.*/remote_user=root/", "ansible.cfg")
+    sh.sed("-i", "s/remote_user=.*/remote_user=ubuntu/", "ansible.cfg")
     sh.ansible_playbook("bootstrap.yml", "--become-password-file", "sudo_password.txt", _out=sys.stdout, _err=sys.stderr)
     sh.sed("-i", "s/remote_user=.*/remote_user=simone/", "ansible.cfg", _out=sys.stdout, _err=sys.stderr)
     sh.ansible_playbook("init_k8s.yml", _out=sys.stdout, _err=sys.stderr)
@@ -32,5 +32,5 @@ def run_ansible():
     sh.ansible_playbook("join_k8s.yml", _out=sys.stdout, _err=sys.stderr)
 
 
-run_terraform()
+#run_terraform()
 run_ansible()

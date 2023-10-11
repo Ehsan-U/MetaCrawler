@@ -9,51 +9,51 @@
 
 
 
-# resource "proxmox_vm_qemu" "cloudinit-VM" {
-#     count = length(var.nodes)
-#     name = var.nodes[count.index]
+resource "proxmox_vm_qemu" "cloudinit-VM" {
+    count = length(var.nodes)
+    name = var.nodes[count.index]
 
-#     target_node = "pve"
-#     pool = "pool0"
-#     clone = "Base-Template"
-#     agent = 1
-#     os_type = "cloud-init"
-#     cores = 2
-#     sockets = 1
-#     vcpus = 0
-#     cpu = "host"
-#     memory = "3072"
-#     scsihw = "virtio-scsi-single"
+    target_node = "pve"
+    pool = "pool0"
+    clone = "base"
+    agent = 1
+    os_type = "cloud-init"
+    cores = 1
+    sockets = 1
+    vcpus = 0
+    cpu = "host"
+    memory = "2048"
+    scsihw = "virtio-scsi-single"
 
-#     disk {
-#         size = "32G"
-#         type = "scsi"
-#         storage = "thpl"
-#         iothread = 1
-#         ssd = 1
-#         discard = "on"
-#     }
+    disk {
+        size = "40G"
+        type = "scsi"
+        storage = "thpl"
+        iothread = 1
+        ssd = 1
+        discard = "on"
+    }
 
-#     network {
-#         model = "virtio"
-#         bridge = "vmbr0"
-#     }
+    network {
+        model = "virtio"
+        bridge = "vmbr0"
+    }
 
-#     ciuser = "ubuntu"
-#     cipassword = "toor"
-#     ipconfig0 = "ip=192.168.0.${count.index + 25}/24,gw=192.168.0.1"
-#     sshkeys = <<EOF
-#         ${var.ssh_public_key}
-#     EOF
+    ciuser = "ubuntu"
+    cipassword = "toor"
+    ipconfig0 = "ip=192.168.0.${count.index + 25}/24,gw=192.168.0.1"
+    sshkeys = <<EOF
+        ${var.ssh_public_key}
+    EOF
     
-#     cloudinit_cdrom_storage = "thpl"
+    cloudinit_cdrom_storage = "thpl"
 
-# }
+}
 
-# output "instance_public_ips" {
-#   value = { for ins in proxmox_vm_qemu.cloudinit-VM: ins.name => ins.ipconfig0 }
-#   description = "The public IPs of the instances"
-# }
+output "instance_public_ips" {
+  value = { for ins in proxmox_vm_qemu.cloudinit-VM: ins.name => ins.ipconfig0 }
+  description = "The public IPs of the instances"
+}
 
 
 
@@ -112,16 +112,16 @@
 ##################### DigitalOcean #######################
 
 
-resource "digitalocean_ssh_key" "default" {
-  name       = "sshansiblekey"
-  public_key = file("/home/hp/.ssh/ansible.pub")
-}
+# resource "digitalocean_ssh_key" "default" {
+#   name       = "sshansiblekey"
+#   public_key = file("/home/hp/.ssh/ansible.pub")
+# }
 
-resource "digitalocean_droplet" "cluster" {
-  image  = "ubuntu-22-04-x64"
-  count = length(var.nodes)
-  name   = var.nodes[count.index]
-  region = "blr1"
-  size   = "s-2vcpu-2gb"
-  ssh_keys = [digitalocean_ssh_key.default.fingerprint]
-}
+# resource "digitalocean_droplet" "cluster" {
+#   image  = "ubuntu-22-04-x64"
+#   count = length(var.nodes)
+#   name   = var.nodes[count.index]
+#   region = "blr1"
+#   size   = "s-2vcpu-2gb"
+#   ssh_keys = [digitalocean_ssh_key.default.fingerprint]
+# }

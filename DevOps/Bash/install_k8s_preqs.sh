@@ -16,7 +16,7 @@ sudo apt-get update
 sudo apt-get install containerd.io -y
 echo "Installed Succesfully"
 
-# configuring containerd
+# # # configuring containerd
 sudo rm /etc/containerd/config.toml
 sudo mkdir /etc/containerd
 sudo containerd config default | sudo tee /etc/containerd/config.toml
@@ -26,11 +26,11 @@ sudo systemctl enable --now containerd
 sudo systemctl restart containerd
 
 
-# turn off swap
+# # # turn off swap
 sudo swapoff -a
 sudo sed -i '/ swap / s/^/#/' /etc/fstab
 
-# sysctl params required by setup, params persist across reboots
+# # # sysctl params required by setup, params persist across reboots
 sudo rm /etc/sysctl.d/k8s.conf
 cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
 net.bridge.bridge-nf-call-iptables  = 1
@@ -38,10 +38,10 @@ net.bridge.bridge-nf-call-ip6tables = 1
 net.ipv4.ip_forward                 = 1
 EOF
 
-# Apply sysctl params without reboot
+# # Apply sysctl params without reboot
 sudo sysctl --system
 
-# enable br_netfilter
+# # # enable br_netfilter
 sudo mkdir /etc/modules-load.d
 sudo rm /etc/modules-load.d/k8s.conf 
 sudo touch /etc/modules-load.d/k8s.conf 

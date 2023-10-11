@@ -1,5 +1,8 @@
 appName: metacrawler
+namespace: default
 
 image:
-  name: localhost:5000/metacrawler
+  name: 192.168.0.30:443/metacrawler
   tag: latest
+
+

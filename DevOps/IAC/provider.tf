@@ -1,12 +1,12 @@
 
-# terraform {
-#   required_providers {
-#     proxmox = {
-#       source = "Telmate/proxmox"
-#       version = "2.9.14"
-#     }
-#   }
-# }
+terraform {
+  required_providers {
+    proxmox = {
+      source = "Telmate/proxmox"
+      version = "2.9.14"
+    }
+  }
+}
 
 # terraform {
 #   required_providers {
@@ -18,23 +18,22 @@
 # }
 
 
-terraform {
-  required_providers {
-    digitalocean = {
-      source = "digitalocean/digitalocean"
-      version = "~> 2.0"
-    }
-  }
-}
-
-
-# provider "proxmox" {
-#   pm_api_url = var.pm_api_url
-#   pm_api_token_id = var.pm_api_token_id
-#   pm_api_token_secret = var.pm_api_token_secret
-  
-#   pm_tls_insecure = true
+# terraform {
+#   required_providers {
+#     digitalocean = {
+#       source = "digitalocean/digitalocean"
+#       version = "~> 2.0"
+#     }
+#   }
 # }
+
+
+provider "proxmox" {
+  pm_api_url = var.pm_api_url
+  pm_api_token_id = var.pm_api_token_id
+  pm_api_token_secret = var.pm_api_token_secret
+  pm_tls_insecure = true
+}
 
 # provider "google" {
 #   project     = "ethereal-anvil-391608"
@@ -42,6 +41,6 @@ terraform {
 #   credentials = file("secret.json")
 # }
 
-provider "digitalocean" {
-  token = var.do_token
-}
+# provider "digitalocean" {
+#   token = var.do_token
+# }

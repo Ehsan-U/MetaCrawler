@@ -14,8 +14,19 @@
       update_cache: true
       upgrade: dist
 
-  - name: Pre-requisites for k8s installation (common for all nodes in the cluster)
-    script: ../Bash/install_k8s_preqs.sh
+  # - name: Pre-requisites for k8s installation (common for all nodes in the cluster)
+  #   script: ../Bash/install_k8s_preqs.sh
+
+  # - name: copying certificate
+  #   copy:
+  #     src: server.crt
+  #     dest: "/home/{{ ansible_user }}/server.crt"
+  #     owner: root
+  #     group: root
+  #     mode: "0644"
+
+  # - name: install self-signed ssl-certificate
+  #   script: ../Bash/install_ssl_certificate.sh
 
 
 - name: Initialize k8s cluster
@@ -25,7 +36,7 @@
   tasks:
 
   - name: Kubeadm init
-    shell: kubeadm init --apiserver-advertise-address $(curl http://icanhazip.com/) --pod-network-cidr 10.244.0.0/16
+    shell: kubeadm init --pod-network-cidr 10.244.0.0/16
     register: kubeadm_init_stdout
 
   - name: Save kubeadm_init_stdout to file

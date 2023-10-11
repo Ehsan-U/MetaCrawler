@@ -37,6 +37,9 @@
       mode: 0664
     notify: restart_ssh
 
+  - name: restart
+    reboot:
+
   handlers:
     - name: restart_ssh
       service:

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug-pod
+spec:
+  containers:
+  - name: debug-container
+    image: busybox
+    command: ["sleep", "3600"]
+    # You can replace 'busybox' with any other image that includes debugging tools you need.
+    # The 'sleep' command keeps the pod running so that you can attach to it for debugging.
+    resources:
+      limits:
+        memory: "128Mi"
+        cpu: "500m"
+    securityContext:
+      runAsUser: 0
+    # Set runAsUser to 0 to run as root, allowing more debugging capabilities.
+    # Be cautious when running containers as root in production.
+  restartPolicy: Never

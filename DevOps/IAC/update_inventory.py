@@ -16,8 +16,8 @@ def extract_ip(raw_string):
 
 
 servers = {
-    "master": [ip for category, ip in mapping.items() if 'master' in category],
-    "slave": [ip for category, ip in mapping.items() if 'slave' in category],
+    "master": [extract_ip(ip) for category, ip in mapping.items() if 'master' in category],
+    "slave": [extract_ip(ip) for category, ip in mapping.items() if 'slave' in category],
 }
 
 with open('../Management/inventory', 'w') as f:
